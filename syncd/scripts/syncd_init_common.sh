@@ -326,6 +326,8 @@ config_syncd_mlnx()
         cat $HWSKU_DIR/sai.profile > /tmp/sai-temp.profile
     fi
 
+    echo >> /tmp/sai-temp.profile
+
     if [[ -f $SAI_COMMON_FILE_PATH ]]; then
         cat $SAI_COMMON_FILE_PATH >> /tmp/sai-temp.profile
     fi
@@ -355,6 +357,9 @@ config_syncd_mlnx()
     if [[ -f /tmp/sai_extra.profile ]]; then
         cat /tmp/sai_extra.profile >> /tmp/sai.profile
     fi
+
+    # Ensure no redundant newlines
+    sed -i '/^$/d' /tmp/sai.profile
 }
 
 config_syncd_centec()
